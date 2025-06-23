@@ -1,0 +1,16 @@
+plugin: amazon.aws.aws_ec2
+regions:
+  - us-east-1
+filters:
+  instance-state-name: running
+
+compose:
+  ansible_host: network_interfaces[0].association.public_ip
+
+keyed_groups:
+  - key: tags.Name
+    prefix: name
+  - key: tags.Role
+    prefix: role
+  - key: tags.Environment
+    prefix: env
